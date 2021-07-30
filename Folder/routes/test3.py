@@ -21,7 +21,3 @@ from decouple import config
 #print("\n\n\n\n\n")
 def test():
     return "test"
-from Folder.db.test2 import Hello
-
-test = Hello()
-print(test)

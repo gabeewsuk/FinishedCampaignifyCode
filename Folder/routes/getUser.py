@@ -1,15 +1,13 @@
 import concurrent.futures
 import requests
 import time
-import sys, os
-sys.path.append(os.path.abspath(os.path.join('..','db')))
-from dbFindUserId import scrapeId
 from pymongo import MongoClient
-import pymongo
-import os
-from dbFindSecUid import findSecUid
+from decouple import config
 
-def userPosts():
+from Folder.db.Finders.dbFindUserId import scrapeId
+
+
+def scrapeUsers():
     #print("SCRAPTIK REQUEST", end='\r')
     out = []
     exceptions = []
@@ -17,22 +15,25 @@ def userPosts():
     TIMEOUT = 5
     querystrings = []
 
-    secUids = findSecUid('TikScrape')
+    user_ids = scrapeId('influencer-database')
 
+    url = config("API_URL")+"/get-user"
 
-    url = os.environ.get("API_URL"+"/user-posts")
-    
     headers = {
-    'x-rapidapi-key': os.environ.get("API_KEY"),
-    'x-rapidapi-host': os.environ.get("API_HOST")
+    'x-rapidapi-key': config("API_KEY"),
+    'x-rapidapi-host': config("API_HOST")
     }
     z = 0
-    for x in secUids:
-        querystrings.append({"sec_user_id":str(x),"count":"100"})
+    for x in user_ids:
+        querystrings.append({"user_id":str(x)})
+        z+=1
+        if z == 5:
+            break
         
 
     def load_url(querystring):
         response = requests.request("GET", url, headers=headers, params=querystring)
+        #sprint(response.json())
         return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
@@ -42,18 +43,15 @@ def userPosts():
             try:
                 data = future.result()
                 out.append(data)
-                print(data)
             except Exception as exc:
                 data1 = str(type(exc))
                 exceptions.append(data1)
                 print(exc)
             finally:
-                #print(len(out),end="\r")
-                print("Working!")
-                #print(exceptions)
+                print()
                 
 
         time2 = time.time()
-    print(f'Took {time2-time1:.2f} s')
+    #print(f'Took {time2-time1:.2f} s')
     print(len(out))
     return out

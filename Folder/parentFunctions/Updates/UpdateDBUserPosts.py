@@ -1,37 +1,39 @@
 from pymongo import MongoClient
 import pymongo
 from dbConnect import connectScrape
-import sys, os
-sys.path.append(os.path.abspath(os.path.join('..','routes')))
 import time
 import concurrent.futures
 import requests
-import os
-from getUserPosts import userPosts
+from decouple import config
 
-def addUserPostsFunc():
-    users = userPosts()
-    db = connectScrape('TikScrape')
-    counter = 0
+
+from Folder.routes.getUserPosts import getPosts
+from Folder.db.dbConnect import connect
+
+def updateUserPosts():
+    users = getPosts()
+    db = connect('TikScrape')
 
     def findAndUpdate(user):
-        db.TokFl.find_one_and_update({"user.sec_uid": user["aweme_list"][0]["sec_uid"]}, {"$set":{"userPosts":user}})
-        counter+=1
-        return counter
-        
+        if user["aweme_list"] == None:
+            print("This user doesnt have posts")
+        else:
+            db.TokFl.find_one_and_update({'user.sec_uid': user["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"userPosts.aweme_list":user["aweme_list"]}})
 
+        return user["aweme_list"][0]["author"]["sec_uid"]
+            
+   
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        future_to_url = (executor.submit(findAndUpdate, querystring)for user in users)
+        future_to_url = (executor.submit(findAndUpdate, user)for user in users)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
                 print(data)
             except Exception as exc:
-                data1 = str(type(exc))
                 print(exc)
             finally:
-                print("Working!")
+                print("--")
                 
 
         time2 = time.time()

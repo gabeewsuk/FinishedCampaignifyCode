@@ -1,13 +1,13 @@
-from dbConnect import connectScrape
 from pymongo import MongoClient
-import pymongo
 import time
 
+from Folder.db.dbConnect import connect
+
 def scrapeId(x):
-    db = connectScrape(x)
+    db = connect(x)
+
+    #gets all users from a specific previous list (old scraper lists) and then sends their ids for reference in return  statement 
     cursor = db.influencers.find({})
-    for document in cursor:
-          print(document)
     cursor = db.influencers.aggregate([{'$project':{ 'authorMeta.id':1, '_id':0,}}])
     user_id = []
     for document in cursor:

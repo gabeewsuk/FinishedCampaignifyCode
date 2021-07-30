@@ -2,13 +2,16 @@ import concurrent.futures
 import requests
 import time
 import sys, os
-sys.path.append(os.path.abspath(os.path.join('..','db')))
-from dbFindUserId import scrapeId
 from pymongo import MongoClient
 import pymongo
 import os
+from decouple import config
 
-def ScrapTikUser():
+
+from Folder.db.Finders.dbFindSecUid import findSecUid
+from FOlder.db.Finders.dbFindUserId import findUserId
+
+def getUser():
     #print("SCRAPTIK REQUEST", end='\r')
     out = []
     exceptions = []
@@ -16,26 +19,20 @@ def ScrapTikUser():
     TIMEOUT = 5
     querystrings = []
 
-    user_ids = scrapeId('influencer-database')
+    user_ids = findSecUid()
 
+    url = config("API_URL")+"/get-user"
 
-    url = os.environ.get("API_URL")
-    
     headers = {
-    'x-rapidapi-key': os.environ.get("API_KEY"),
-    'x-rapidapi-host': os.environ.get("API_HOST")
+    'x-rapidapi-key': config("API_KEY"),
+    'x-rapidapi-host': config("API_HOST")
     }
-    z = 0
     for x in user_ids:
-        querystrings.append({"user_id":str(x)})
-        z+=1
-        if z == 5:
-            break
+        querystrings.append({"sec_user_id":str(x)})
         
 
     def load_url(querystring):
         response = requests.request("GET", url, headers=headers, params=querystring)
-        #sprint(response.json())
         return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
@@ -45,15 +42,12 @@ def ScrapTikUser():
             try:
                 data = future.result()
                 out.append(data)
-                print(data)
             except Exception as exc:
                 data1 = str(type(exc))
                 exceptions.append(data1)
                 print(exc)
             finally:
-                #print(len(out),end="\r")
-                print("Working!")
-                #print(exceptions)
+                print()
                 
 
         time2 = time.time()

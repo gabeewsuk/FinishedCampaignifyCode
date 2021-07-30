@@ -1,8 +1,7 @@
-import sys
-sys.path.append('Folder/db')
+from Folder.db.Updates.UpdateDBSingleUser import updateSingleUser
 
-from bulkWrite import bulkWriteUsers
-from addUserPosts import addUserPostsFunc
 #bulkWriteUsers()
-addUserPostsFunc()
+#addUserPostsFunc()
+updateSingleUser(["MS4wLjABAAAAqyXUX37MCfUky9MFN-gh9SiQc5rrptm4LTzqLaVEt8mo9-GAFzn3n5UiJx7GuJ4y"])
+
 

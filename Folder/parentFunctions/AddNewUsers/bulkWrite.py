@@ -1,15 +1,16 @@
 from pymongo import MongoClient
 import pymongo
-from dbConnect import connectScrape
 import sys, os
 #sys.path.append('../routes')
 from scrapTikRequests import ScrapTikUser
 import time
 
+from Folder.db.dbConnect import connect
+from Folder.routes.getUser import scrapeUsers
 
-def bulkWriteUsers():
-    documents = ScrapTikUser()
-    db = connectScrape('TikScrape')
+def addNewUsers():
+    documents = scrapeUsers()
+    db = connect('TikScrape')
     db.TokFl.insert_many(documents)
     time.sleep(60)
     cursor = collection.find({})

@@ -1,21 +1,22 @@
-from dbConnect import connectScrape
 from pymongo import MongoClient
-import pymongo
 import time
 
+from Folder.db.dbConnect import connect
+
+
 def findSecUid(x):
-    db = connectScrape("TikScrape")
+    db = connect("TikScrape")
+    #gets all users from the db list above^ and then only shows the sec_uid to reference user
     cursor = db.TokFl.find({})
-    for document in cursor:
-          print(document)
     cursor = db.TokFl.aggregate([{'$project':{ 'user.sec_uid':1, '_id':0,}}])
-    #cursor = db.TokFl.aggregate()
+
+    #adding sec_uids to one giant list to then be used  later for reference
     user_id = []
     for document in cursor:
         try:
             print(document)
             user_id.append(document['user']['sec_uid'])
-            print("working")
+            print("working SECUID", end="\n\n\n\n\n")
             print(document['user']['sec_uid'])
  
         except KeyError: 
@@ -25,5 +26,4 @@ def findSecUid(x):
         
             
     print(user_id)
-    time.sleep(2)
     return user_id
