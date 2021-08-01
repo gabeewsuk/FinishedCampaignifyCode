@@ -3,7 +3,7 @@ import time
 
 from Folder.db.dbConnect import connect
 
-def scrapeId(x):
+def findUserId(x):
     db = connect(x)
 
     #gets all users from a specific previous list (old scraper lists) and then sends their ids for reference in return  statement 

@@ -4,10 +4,9 @@ import time
 from pymongo import MongoClient
 from decouple import config
 
-from Folder.db.Finders.dbFindUserId import scrapeId
 
 
-def scrapeUsers():
+def scrapeUsers(user_ids):
     #print("SCRAPTIK REQUEST", end='\r')
     out = []
     exceptions = []
@@ -15,7 +14,6 @@ def scrapeUsers():
     TIMEOUT = 5
     querystrings = []
 
-    user_ids = scrapeId('influencer-database')
 
     url = config("API_URL")+"/get-user"
 

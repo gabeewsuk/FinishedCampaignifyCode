@@ -9,7 +9,7 @@ from decouple import config
 
 
 from Folder.db.Finders.dbFindSecUid import findSecUid
-from FOlder.db.Finders.dbFindUserId import findUserId
+from Folder.db.Finders.dbFindUserId import findUserId
 
 def getUser():
     #print("SCRAPTIK REQUEST", end='\r')

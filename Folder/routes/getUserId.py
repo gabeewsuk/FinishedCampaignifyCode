@@ -1,0 +1,66 @@
+from pymongo import MongoClient
+#import sys, os
+import time
+import concurrent.futures
+import requests
+from decouple import config
+
+
+
+
+
+def getUserId(userNames):
+    querystrings = []
+    out = []
+        
+    url = config("API_URL")+"/username-to-id"
+
+
+    headers = {
+        'x-rapidapi-key': config("API_KEY"),
+        'x-rapidapi-host': config("API_HOST")
+        }
+
+
+
+    for x in userNames:
+        querystrings.append({"username":str(x)})
+            
+    print(querystrings)
+    def load_url(querystring):
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        return response.json()
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
+        time1 = time.time()
+        for future in concurrent.futures.as_completed(future_to_url):
+            try:
+                data = future.result()
+                out.append(data)
+            except Exception as exc:
+                data1 = str(type(exc))
+                print(exc)
+            finally:
+                print()
+                
+
+        time2 = time.time()
+    #print(f'Took {time2-time1:.2f} s')
+    print(len(out))
+    user_id = []
+    for document in out:
+        try:
+            print(document)
+            user_id.append(document['user_id'])
+            print("working SECUID", end="\n\n\n\n\n")
+            print(document['user_id'])
+ 
+        except KeyError: 
+            print(KeyError)
+            print("not working")
+	        # handle the error 
+        
+            
+    print(user_id)
+    return user_id

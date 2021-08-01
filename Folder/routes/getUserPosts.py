@@ -16,7 +16,7 @@ def userPosts():
     TIMEOUT = 5
     querystrings = []
 
-    secUids = findSecUid('TikScrape')
+    secUids = findSecUid()
 
 
     url = config("API_URL")+"/user-posts"

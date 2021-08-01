@@ -4,6 +4,8 @@ import time
 import concurrent.futures
 import requests
 from decouple import config
+from datetime import datetime as d
+
 
 
 from Folder.db.dbConnect import connect
@@ -14,10 +16,11 @@ def updateUsers():
     db = connect('TikScrape')     
 
     def findAndUpdate(user):
+        date = d.now()
         if user["user"] == None:
             print("This no longer exists")
         else:
-            db.TokFl.find_one_and_update({'user.sec_uid': user["user"]["sec_uid"]}, {"$set":{"user":user["user"]}})
+            db.TokFl.find_one_and_update({'TikTok.user.sec_uid': user["user"]["sec_uid"]}, {"$set":{"TikTok.user":user["user"], "TikTok.lastUserUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}})
         return user["user"]
         
    
@@ -36,4 +39,4 @@ def updateUsers():
 
         time2 = time.time()
     #print(f'Took {time2-time1:.2f} s')
-    print("Done updating"+str(counter)+"documents!")
+    print("Done updating Users!")

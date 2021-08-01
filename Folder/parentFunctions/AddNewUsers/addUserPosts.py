@@ -3,13 +3,15 @@ from pymongo import MongoClient
 import time
 import concurrent.futures
 import requests
+from datetime import datetime as d
 
-from Folder.routes.getUserPosts import userPosts
+from Folder.routes.getUserPostsByUId import userPostsUId
 from Folder.db.dbConnect import connect
 
 
-def newUsers_addUserPosts():
-    users = userPosts()
+
+def newUsers_addUserPosts(userIds):
+    users = userPostsUId(userIds)
     db = connect('TikScrape')
 
     for user in users:
@@ -21,13 +23,12 @@ def newUsers_addUserPosts():
             print("\n\n\n")        
 
     def findAndUpdate(user):
+        date = d.now()
         if user["aweme_list"] == None:
             print("This user doesnt have posts")
         else:
-            db.TokFl.find_one_and_update({'user.sec_uid': user["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"userPosts":user}})
-            #counter+=1
-            print("updating"+str(counter))
-            time.sleep(12)
+            db.TokFl.find_one_and_update({'TikTok.user.sec_uid': user["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"TikTok.userPosts":user, "TikTok.lastPostUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}})
+            print("updating...")
         return user["aweme_list"][0]["author"]["sec_uid"]
         
    
@@ -46,4 +47,4 @@ def newUsers_addUserPosts():
 
         time2 = time.time()
     #print(f'Took {time2-time1:.2f} s')
-    print("Done updating"+str(counter)+"documents!")
+    print("Done updating documents!")
