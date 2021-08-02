@@ -15,6 +15,7 @@ from Folder.parentFunctions.AddNewUsers.newUser_addUserByName import addNewUsers
 
 
 #importing functions for updating
+from Folder.parentFunctions.Updates.UpdateDBAverages import updateAverages
 from Folder.parentFunctions.Updates.UpdateDBSingleUser import updateSelectUsers
 from Folder.parentFunctions.Updates.UpdateDBUserPosts import updateUserPosts
 from Folder.parentFunctions.Updates.UpdateDBUsers import updateUsers
@@ -45,6 +46,7 @@ class updateSingleUser(Resource):
     def post(self):
         args = scrape_post_args.parse_args()
         updateSelectUsers(args.sec_uid)
+        updateAverages()
         return "Success"
     def get(self):
         return "Nothing to GET"
@@ -59,6 +61,7 @@ class updateAllUsers(Resource):
 class updateAllUserPosts(Resource):
     def post(self):
         updateUserPosts()
+        updateAverages()
         return "Success"
     def get(self):
         return "Nothing to GET"
@@ -70,12 +73,14 @@ class oldDB_AddUser(Resource):
         user_ids = findUserId('influencer-database')
         users = addNewUsers(user_ids)
         newUsers_addUserPosts(users)
+        updateAverages()
         return "Success"
         
 class addNewUserByUserName(Resource):
     def post(self):
         args = scrape_post_args.parse_args()
         addNewUsersByUName(args.userNames)
+        updateAverages()
         return "Success"
 
 

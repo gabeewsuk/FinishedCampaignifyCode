@@ -1,20 +1,14 @@
 import requests
 from decouple import config
 
-from Averages.AverageViews import averageViews
-from Averages.AverageLikes import averageLikes
-from Averages.AverageShares import averageShares
-from Averages.AverageComments import averageComments
+from Folder.db.Averages.AverageShares import averageShares
+from Folder.db.Averages.AverageComments import averageComments
+from Folder.db.Averages.AverageViews import averageViews
+from Folder.db.Averages.AverageLikes import averageLikes
+from Folder.parentFunctions.Updates.UpdateDBAverages import updateAverages
+from Folder.db.Finders.dbFindAweme_List import findAweme_List
+from Folder.db.Averages.AveragesCalc import averageCalc
 
 
-#views = averageViews()
-#print(views)
+updateAverages()
 
-#likes = averageLikes()
-#print(likes)
-
-#comments = averageComments()
-#print(comments)
-
-shares = averageShares()
-print(shares)
