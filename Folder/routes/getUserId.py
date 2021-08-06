@@ -31,7 +31,7 @@ def getUserId(userNames):
         response = requests.request("GET", url, headers=headers, params=querystring)
         return response.json()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=9) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
@@ -46,7 +46,7 @@ def getUserId(userNames):
                 
 
         time2 = time.time()
-    #print(f'Took {time2-time1:.2f} s')
+    print(f'Took {time2-time1:.2f} s')
     print(len(out))
     user_id = []
     for document in out:
@@ -62,5 +62,4 @@ def getUserId(userNames):
 	        # handle the error 
         
             
-    print(user_id)
     return user_id

@@ -9,7 +9,7 @@ from Folder.db.Finders.dbFindAweme_List import findAweme_List
 from Folder.db.dbConnect import connect
 from Folder.db.Averages.AveragesCalc import averageCalc
 
-def updateAverages():
+def updateAvgs():
     db = connect('TikScrape')
     cursor = findAweme_List()
     Averages = averageCalc(cursor)
@@ -23,7 +23,7 @@ def updateAverages():
         "TikTok.Averages.lastAverageUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}})
         return Average[0]
    
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
         future_to_url = (executor.submit(findAndUpdate, Average)for Average in Averages)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
@@ -33,9 +33,8 @@ def updateAverages():
             except Exception as exc:
                 print(exc)
             finally:
-                print("--")
+                print("updating averages...")
                 
 
         time2 = time.time()
-    #print(f'Took {time2-time1:.2f} s')
     print("Done updating Averages!")

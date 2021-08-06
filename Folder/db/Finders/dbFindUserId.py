@@ -13,14 +13,11 @@ def findUserId(x):
     for document in cursor:
         try:
             user_id.append(document['authorMeta']['id'])
-            print("working")
-            print(document["authorMeta"]['id'])
+           
  
         except KeyError: 
             print(KeyError)
 	        # handle the error 
         
             
-    print(user_id)
-    time.sleep(20)
     return user_id

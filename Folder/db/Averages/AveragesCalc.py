@@ -5,11 +5,6 @@ import time
 
 def averageCalc(cursor):
     print("COMMENTS")
-    #averageComments = []
-    #averageLikes = []
-    #averageViews = []
-    #averageShares = []
-    #_ids = []
     Averages = []
     for document in cursor:
         totalComments = 0
@@ -17,23 +12,26 @@ def averageCalc(cursor):
         totalViews = 0
         totalShares = 0
         try:
-            
-            for x in range(6):
+            if len(document['TikTok']['userPosts']['aweme_list']) < 6:
+                length = len(document['TikTok']['userPosts']['aweme_list'])
+            else:
+                length = 6
+            for x in range(length):
                 totalComments += document['TikTok']['userPosts']['aweme_list'][x]['statistics']['comment_count']
             averageComments = round(totalComments/6)
             #averageComments.append(average)
 
-            for x in range(6):
+            for x in range(length):
                 totalLikes += document['TikTok']['userPosts']['aweme_list'][x]['statistics']['digg_count']
             averageLikes = round(totalLikes/6)
             #averageLikes.append(average)
 
-            for x in range(6):
+            for x in range(length):
                 totalViews += document['TikTok']['userPosts']['aweme_list'][x]['statistics']['play_count']
             averageViews = round(totalViews/6)
             #averageViews.append(average)
 
-            for x in range(6):
+            for x in range(length):
                 totalShares += document['TikTok']['userPosts']['aweme_list'][x]['statistics']['share_count']
             averageShares = round(totalShares/6)
             #averageShares.append(average)
@@ -57,6 +55,5 @@ def averageCalc(cursor):
 
         
             
-    print(Averages)
 
     return Averages

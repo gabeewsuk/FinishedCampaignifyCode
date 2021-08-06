@@ -14,10 +14,8 @@ def findSecUid():
     user_id = []
     for document in cursor:
         try:
-            print(document)
             user_id.append(document['TikTok']['user']['sec_uid'])
-            print("working SECUID", end="\n\n\n\n\n")
-            print(document['TikTok']['user']['sec_uid'])
+            
  
         except KeyError: 
             print(KeyError)
@@ -25,5 +23,4 @@ def findSecUid():
 	        # handle the error 
         
             
-    print(user_id)
     return user_id

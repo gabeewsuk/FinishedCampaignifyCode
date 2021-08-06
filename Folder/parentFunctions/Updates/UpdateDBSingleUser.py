@@ -8,9 +8,13 @@ from datetime import datetime as d
 
 #Local File imports
 from Folder.db.dbConnect import connect
+from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
+from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
+
 
 def updateSelectUsers(sec_uids):
-    print("made it here")
+    print("Updating Selected Users")
+
     #setting variables
     querystrings = []
     querystringsPOSTS = []
@@ -40,20 +44,12 @@ def updateSelectUsers(sec_uids):
     #--For all users sent in via array-- finding the user in Mongo and updating them with user creds first then updating posts $$(just replaced values for MVP)$$
     for querystring in querystrings:
         user = fetch_user(querystring)
-        date = d.now()
-        if user["user"] == None:
-            print("This no longer exists")
-        else:
-            db.TokFl.find_one_and_update({'TikTok.user.sec_uid': user["user"]["sec_uid"]}, {"$set":{"TikTok.user":user["user"], "TikTok.lastUserUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}})
+        findAndUpdateUser(user)
+        
     for querystring in querystringsPOSTS:
         posts = fetch_user_posts(querystring)
-        date = d.now()
-        if posts["aweme_list"] == None:
-            print("This user has no posts")
-        else:
-            db.TokFl.find_one_and_update({'TikTok.user.sec_uid': posts["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"TikTok.userPosts.aweme_list":posts["aweme_list"], "TikTok.lastPostUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}})
-    
-
+        findAndUpdateUserPosts(posts)
+       
         
    
    
