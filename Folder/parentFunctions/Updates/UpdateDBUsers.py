@@ -12,8 +12,10 @@ from Folder.db.dbConnect import connect
 from Folder.routes.getUserSecUid import getUser
 from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
 
-
+#updates all user profiles in the db
 def updateUsers():
+
+    #get all data for users and then sends them in for an update
     users = getUser()
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         future_to_url = (executor.submit(findAndUpdateUser, user)for user in users)
@@ -21,7 +23,6 @@ def updateUsers():
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
-                print(data)
             except Exception as exc:
                 print(exc)
             finally:
@@ -29,4 +30,5 @@ def updateUsers():
                 
 
         time2 = time.time()
+    print(f'Took {time2-time1:.2f} s')
     print("Done updating Users!")

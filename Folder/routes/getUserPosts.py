@@ -8,7 +8,7 @@ from decouple import config
 from Folder.db.Finders.dbFindSecUid import findSecUid
 from Folder.db.Finders.dbFindUserId import findUserId
 
-
+#get userPosts for all users in the db
 def userPosts():
     out = []
     exceptions = []
@@ -16,6 +16,7 @@ def userPosts():
     TIMEOUT = 5
     querystrings = []
 
+    #gets all secUids in mongodb
     secUids = findSecUid()
 
 
@@ -26,7 +27,6 @@ def userPosts():
     }
 
 
-    z = 0
     for x in secUids:
         querystrings.append({"sec_user_id":str(x),"count":"100", "max_cursor":"0"})
 

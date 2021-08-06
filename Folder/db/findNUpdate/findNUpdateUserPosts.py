@@ -2,7 +2,7 @@ from Folder.db.dbConnect import connect
 from datetime import datetime as d
 from datetime import datetime
 
-
+#Finding user and updating posts with correct trimmed schema
 def findAndUpdateUserPosts(user):
     db = connect('TikScrape')
 
@@ -79,6 +79,7 @@ def findAndUpdateUserPosts(user):
     {'max_cursor':user['max_cursor'],
     'min_cursor':user['min_cursor']}}
 
+    #creating dictionary of averages and superString
     averages = {
     'views':averageViews,
     'likes':averageLikes,

@@ -6,6 +6,7 @@ import pymongo
 from decouple import config
 
 
+#get user posts by User id... Needed for when we add users by username
 def userPostsUId(userIds):
     out = []
     exceptions = []

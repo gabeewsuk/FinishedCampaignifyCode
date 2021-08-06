@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from decouple import config
 
 
-
+#scrape users from api.. by Uids
 def scrapeUsers(user_ids):
     out = []
     exceptions = []
@@ -21,13 +21,14 @@ def scrapeUsers(user_ids):
     'x-rapidapi-host': config("API_HOST")
     }
 
+    #creating querystring for the request function
     for x in user_ids:
         querystrings.append({"user_id":str(x)})
         
 
+    #request function
     def load_url(querystring):
         response = requests.request("GET", url, headers=headers, params=querystring)
-        #sprint(response.json())
         return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=9) as executor:

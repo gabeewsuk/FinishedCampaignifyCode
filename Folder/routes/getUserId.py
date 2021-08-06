@@ -8,7 +8,7 @@ from decouple import config
 
 
 
-
+#getUserId from an array of usernames
 def getUserId(userNames):
     querystrings = []
     out = []
@@ -51,10 +51,7 @@ def getUserId(userNames):
     user_id = []
     for document in out:
         try:
-            print(document)
             user_id.append(document['user_id'])
-            print("working SECUID", end="\n\n\n\n\n")
-            print(document['user_id'])
  
         except KeyError: 
             print(KeyError)

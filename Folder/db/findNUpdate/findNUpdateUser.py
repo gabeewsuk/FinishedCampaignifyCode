@@ -1,8 +1,9 @@
 from Folder.db.dbConnect import connect
 from datetime import datetime as d
 
+
+#Finding user and updating with correct trimmed schema
 def findAndUpdateUser(user):
-    print("FIND AND UPDATE USER")
     db = connect('TikScrape')
     date = d.now()
 

@@ -10,7 +10,7 @@ from datetime import datetime as d
 from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
 
 
-
+#adds new users by user id
 def addNewUsers(user_ids):
     test = []
     z = 0
@@ -20,7 +20,7 @@ def addNewUsers(user_ids):
         z+=1
         if z == 5:
             break
-
+    #gets documents from how many we want to scrape
     documents = scrapeUsers(test)
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
@@ -29,7 +29,6 @@ def addNewUsers(user_ids):
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
-                print(data)
             except Exception as exc:
                 print(exc)
             finally:
@@ -37,6 +36,7 @@ def addNewUsers(user_ids):
                 
 
         time2 = time.time()
+    print(f'Took {time2-time1:.2f} s')
     print("bulk insert users complete...")
     return test
     

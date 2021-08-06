@@ -3,7 +3,7 @@ import time
 
 from Folder.db.dbConnect import connect
 
-
+#find all SecUids in the db... Used for referencing scraping and updating
 def findSecUid():
     db = connect("TikScrape")
     #gets all users from the db list above^ and then only shows the sec_uid to reference user

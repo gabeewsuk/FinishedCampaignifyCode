@@ -12,8 +12,9 @@ from Folder.routes.getUserPosts import userPosts
 from Folder.db.dbConnect import connect
 from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
 
-
+#update all user posts in the db
 def updateUserPosts():
+    #get all data for posts and then sends them in for an update
     users = userPosts() 
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
@@ -22,7 +23,6 @@ def updateUserPosts():
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
-                print(data)
             except Exception as exc:
                 print(exc)
             finally:
@@ -30,4 +30,5 @@ def updateUserPosts():
                 
 
         time2 = time.time()
+    print(f'Took {time2-time1:.2f} s')
     print("Done updating UserPosts!")

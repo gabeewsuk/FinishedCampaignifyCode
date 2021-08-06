@@ -11,8 +11,8 @@ from decouple import config
 from Folder.db.Finders.dbFindSecUid import findSecUid
 from Folder.db.Finders.dbFindUserId import findUserId
 
+#get user by sec-uid... pulls all from db and gets data for each one
 def getUser():
-    #print("SCRAPTIK REQUEST", end='\r')
     out = []
     exceptions = []
     CONNECTIONS = 100

@@ -3,6 +3,7 @@ import time
 
 from Folder.db.dbConnect import connect
 
+#find User Id, this is needed for pulling from the old db.. and updating users by username...
 def findUserId(x):
     db = connect(x)
 

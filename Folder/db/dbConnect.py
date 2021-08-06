@@ -6,6 +6,7 @@ import ssl
 from decouple import config
 
 
+#connects to mongodb
 def connect(x):
     client = pymongo.MongoClient(config('MONGO_URI'))
 

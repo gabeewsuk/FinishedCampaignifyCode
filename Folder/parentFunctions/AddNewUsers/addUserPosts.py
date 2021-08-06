@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-#import sys, os
 import time
 import concurrent.futures
 import requests
@@ -11,8 +10,9 @@ from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
 
 
 
-
+#updates sent in users with user posts
 def newUsers_addUserPosts(userIds):
+    #gets the posts from the input
     users = userPostsUId(userIds)
     with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
         future_to_url = (executor.submit(findAndUpdateUserPosts, user)for user in users)
@@ -20,7 +20,6 @@ def newUsers_addUserPosts(userIds):
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
-                #print(data)
             except Exception as exc:
                 print(exc)
             finally:
@@ -28,5 +27,5 @@ def newUsers_addUserPosts(userIds):
                 
 
         time2 = time.time()
-    #print(f'Took {time2-time1:.2f} s')
-    print("Done updating documents!")
+    print(f'Took {time2-time1:.2f} s')
+    print("Done updating userPosts!")

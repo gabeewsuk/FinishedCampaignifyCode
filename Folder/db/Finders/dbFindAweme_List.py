@@ -3,7 +3,7 @@ import time
 
 from Folder.db.dbConnect import connect
 
-
+#aggregate the posts for each user in the db
 def findAweme_List():
     db = connect("TikScrape")
     cursor = db.TokFl.find({})

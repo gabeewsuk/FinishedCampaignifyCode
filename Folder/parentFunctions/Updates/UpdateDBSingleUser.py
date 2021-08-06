@@ -11,7 +11,7 @@ from Folder.db.dbConnect import connect
 from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
 from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
 
-
+#update selected users... Posts and User profile...
 def updateSelectUsers(sec_uids):
     print("Updating Selected Users")
 
@@ -45,7 +45,7 @@ def updateSelectUsers(sec_uids):
     for querystring in querystrings:
         user = fetch_user(querystring)
         findAndUpdateUser(user)
-        
+
     for querystring in querystringsPOSTS:
         posts = fetch_user_posts(querystring)
         findAndUpdateUserPosts(posts)
