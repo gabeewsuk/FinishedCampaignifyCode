@@ -33,6 +33,7 @@ def userPosts():
 
     def load_url(querystring):
         response = requests.request("GET", url, headers=headers, params=querystring)
+        time.sleep(1)
         return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=9) as executor:

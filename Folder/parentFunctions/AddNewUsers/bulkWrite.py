@@ -18,7 +18,7 @@ def addNewUsers(user_ids):
     for x in user_ids:
         test.append(x)
         z+=1
-        if z == 5:
+        if z == 1001:
             break
     #gets documents from how many we want to scrape
     documents = scrapeUsers(test)
