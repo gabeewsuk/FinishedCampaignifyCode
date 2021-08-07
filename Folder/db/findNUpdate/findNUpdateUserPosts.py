@@ -48,7 +48,7 @@ def findAndUpdateUserPosts(user):
         'video_text':post['video_text'],
         'with_promotional_music':post['with_promotional_music'],
         'date':dt_object,
-        'share_url':posts['share_url']}
+        'share_url':post['share_url']}
         })
         descSuperString+=post['desc']
         if counter <length:
