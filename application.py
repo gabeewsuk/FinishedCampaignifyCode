@@ -23,9 +23,9 @@ from Folder.parentFunctions.Updates.UpdateDBUsers import updateUsers
 
 
 #initializing app, api, and cors
-app = Flask(__name__)
-api = Api(app)
-cors = CORS(app, origins={"origins": "*"})
+application = Flask(__name__)
+api = Api(application)
+cors = CORS(application, origins={"origins": "*"})
 
 #setting reqparser
 scrape_post_args = reqparse.RequestParser()
@@ -100,4 +100,4 @@ api.add_resource(addNewUserByUserName, "/addUserByUserName")
 api.add_resource(Home, "/")
 
 if __name__ == "__main__":
-   app.run()
+   application.run()
