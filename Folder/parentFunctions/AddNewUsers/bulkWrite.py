@@ -19,7 +19,7 @@ def addNewUsers(user_ids):
         test.append(x)
         z+=1
         if z == 1001:
-            breaks
+            break
     #gets documents from how many we want to scrape
     documents = scrapeUsers(test)
     
