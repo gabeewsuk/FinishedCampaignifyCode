@@ -25,7 +25,7 @@ from Folder.parentFunctions.Updates.UpdateDBUsers import updateUsers
 #initializing app, api, and cors
 application = Flask(__name__)
 api = Api(application)
-cors = CORS(app, origins={"origins": "*"})
+cors = CORS(application, origins={"origins": "*"})
 
 #setting reqparser
 scrape_post_args = reqparse.RequestParser()
