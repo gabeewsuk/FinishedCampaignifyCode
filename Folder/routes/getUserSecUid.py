@@ -36,7 +36,7 @@ def getUser():
         time.sleep(1)
         return response.json()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
@@ -49,6 +49,8 @@ def getUser():
                 print(exc)
             finally:
                 print()
+                time.sleep(3)
+
                 
 
         time2 = time.time()

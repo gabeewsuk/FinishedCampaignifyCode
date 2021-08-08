@@ -20,8 +20,10 @@ def addNewUsers(user_ids):
         z+=1
         if z == 1001:
             break
+    print("z is:"+str(len(test)))
     #gets documents from how many we want to scrape
     documents = scrapeUsers(test)
+    
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
         future_to_url = (executor.submit(findAndUpdateUser, document)for document in documents)
