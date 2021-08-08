@@ -32,7 +32,7 @@ def scrapeUsers(user_ids):
         time.sleep(1)
         return response.json()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=9) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
