@@ -104,3 +104,21 @@ if __name__ == "__main__":
 
 
 #    WSGIPath: application:application
+
+#option_settings:
+#  "aws:elasticbeanstalk:container:python":
+ #   web: gunicorn --timeout 500000000000 application:application
+
+ #   files:
+ # ".platform/nginx/conf.d/myconfig.conf" :
+ #   mode: "000644"
+ #   owner: root
+  #  group: root
+  #  content: |
+  #    keepalive_timeout 500000000000;
+  #    proxy_connect_timeout 500000000000;
+  #    proxy_send_timeout 500000000000;
+  #    proxy_read_timeout 500000000000;
+  #    send_timeout 500000000000; 
+  #    fastcgi_send_timeout 500000000000; 
+  #    fastcgi_read_timeout 500000000000;
