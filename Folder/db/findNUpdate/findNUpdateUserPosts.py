@@ -3,8 +3,7 @@ from datetime import datetime as d
 from datetime import datetime
 
 #Finding user and updating posts with correct trimmed schema
-def findAndUpdateUserPosts(user):
-    db = connect('TikScrape')
+def findAndUpdateUserPosts(db, user):
 
     #setting initial variables
     date = d.now()

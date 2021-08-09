@@ -18,23 +18,27 @@ def addNewUsers(user_ids):
     for x in user_ids:
         test.append(x)
         z+=1
-        if z == 1001:
+        if z == 5:
             break
-    print("z is:"+str(len(test)))
+    print("number of users from DB is:"+str(len(test)))
     #gets documents from how many we want to scrape
     documents = scrapeUsers(test)
-    
-    
+
+    print("Length of documents after API is:"+str(len(documents)))
+
+    db = connect('TikScrape')
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
-        future_to_url = (executor.submit(findAndUpdateUser, document)for document in documents)
+        future_to_url = (executor.submit(findAndUpdateUser, db, document)for document in documents)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
+                print(data)
             except Exception as exc:
-                print(exc)
+                print("Exception is:"+str(exc))
             finally:
-                print("--")
+                x = 0
                 
 
         time2 = time.time()

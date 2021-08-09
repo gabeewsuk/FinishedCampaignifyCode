@@ -14,8 +14,11 @@ from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
 def newUsers_addUserPosts(userIds):
     #gets the posts from the input
     users = userPostsUId(userIds)
+
+    print("Length of users being updated is"+str(len(users)))
+    db = connect('TikScrape')
     with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
-        future_to_url = (executor.submit(findAndUpdateUserPosts, user)for user in users)
+        future_to_url = (executor.submit(findAndUpdateUserPosts, db,  user)for user in users)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
             try:
@@ -23,8 +26,7 @@ def newUsers_addUserPosts(userIds):
             except Exception as exc:
                 print(exc)
             finally:
-                print("--")
-                
+                x = 0 
 
         time2 = time.time()
     print(f'Took {time2-time1:.2f} s')
