@@ -33,7 +33,7 @@ def scrapeUsers(user_ids):
             print("API server is getting too many requests")
         return response.json()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
@@ -44,6 +44,9 @@ def scrapeUsers(user_ids):
                 print(exc)
             finally:
                 time.sleep(3)
+                time2 = time.time()
+                print(f' reqest Took {time2-time1:.2f} s')
+
                 
 
         time2 = time.time()
