@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS
+import time
 
 #importing function for gettin user from old db
 from Folder.db.Finders.dbFindUserId import findUserId
@@ -69,6 +70,7 @@ class oldDB_AddUser(Resource):
     def post(self):
         user_ids = findUserId('influencer-database')
         users = addNewUsers(user_ids)
+        time.sleep(10)
         newUsers_addUserPosts(users)
         return "Success"
         

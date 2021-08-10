@@ -15,7 +15,7 @@ def findAndUpdateUser(db, user):
         try:
             db.TokFl.find_one_and_update({'TikTok.user.sec_uid': user["user"]["sec_uid"]},
             {"$set":
-            {
+            {"TikTok.user.avatar_thumb":user["user"]["avatar_thumb"]["url_list"][0],
                 #"TikTok.user.bio_url":user["user"]['bio_url'],
             "TikTok.user.follower_count":user["user"]['follower_count'],
             "TikTok.user.following_count":user["user"]['following_count'],
@@ -34,5 +34,4 @@ def findAndUpdateUser(db, user):
         except Exception as Exc:
             print(Exc)
             print(user)
-    print(user["user"]["nickname"])
     return user["user"]["nickname"]

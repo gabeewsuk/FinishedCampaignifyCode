@@ -14,11 +14,11 @@ from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
 
 #updates all user profiles in the db
 def updateUsers():
-
+    db = connect("TikScrape")
     #get all data for users and then sends them in for an update
     users = getUser()
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        future_to_url = (executor.submit(findAndUpdateUser, user)for user in users)
+        future_to_url = (executor.submit(findAndUpdateUser,db, user)for user in users)
         time1 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
             try:
