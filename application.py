@@ -68,10 +68,17 @@ class updateAllUserPosts(Resource):
 #defining addUser function endpoints
 class oldDB_AddUser(Resource):
     def post(self):
+        time1 = time.time()
         user_ids = findUserId('influencer-database')
         users = addNewUsers(user_ids)
+        time2 = time.time()
         time.sleep(10)
         newUsers_addUserPosts(users)
+        time3 = time.time()
+        usertime = time2-time1
+        poststime = time3-time2
+        totaltime = time3-time1
+        print(f'usertime: {usertime:.2f}\n posttime: {posttime:.2f}\n usertime: {totaltime:.2f}')
         return "Success"
         
 class addNewUserByUserName(Resource):
