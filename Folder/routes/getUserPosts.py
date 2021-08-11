@@ -39,7 +39,7 @@ def userPosts():
             response = requests.request("GET", url, headers=headers, params=querystring)
         return response.json()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=60) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
         time1 = time.time()
         time4 = time.time()
@@ -54,7 +54,7 @@ def userPosts():
             finally:
                 time2 = time.time()
                 if len(out) %10 ==0:
-                    if (time2-time4) < 1.1:
+                    if (time2-time4) < 6.6:
                         print("TOO FAST")
                         time.sleep(1.5)
                     time4 = time.time()
