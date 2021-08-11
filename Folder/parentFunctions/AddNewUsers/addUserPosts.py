@@ -15,11 +15,14 @@ def newUsers_addUserPosts(userIds):
     db = connect('TikScrape')
     subset = []
     i = 0
+    counter = 0 
     for x in userIds:
+        counter+=1
         subset.append(x)
-        if i % 30 == 0:
+        if i % 200 == 0:
             users = userPostsUId(subset)
             print("Length of users being updated is"+str(len(users)))
+            print(str(counter)+" have been updated so far!")
             with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
                 future_to_url = (executor.submit(findAndUpdateUserPosts, db,  user)for user in users)
                 time1 = time.time()

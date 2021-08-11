@@ -54,7 +54,7 @@ def userPosts():
             finally:
                 time2 = time.time()
                 if len(out) %10 ==0:
-                    if (time2-time4) > 1.1:
+                    if (time2-time4) < 1.1:
                         print("TOO FAST")
                         time.sleep(1.5)
                     time4 = time.time()

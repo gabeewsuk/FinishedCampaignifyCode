@@ -14,23 +14,26 @@ from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
 def addNewUsers(user_ids):
     db = connect('TikScrape')
     test = []
+    counter = 0
     z = 0
     #choose how many users we want
     for x in user_ids:
-        if z>1300:
+        if z>1600:
             test.append(x)
         z+=1
-        if z == 1600:
+        if z == 2000:
             break
     print("number of users from DB is:"+str(len(test)))
     #gets documents from how many we want to scrape
     subset = []
     i = 0
     for x in test:
+        counter+=1
         subset.append(x)
-        if i % 30 == 0:
+        if i % 200 == 0:
             documents = scrapeUsers(subset)
             print("Length of documents after API is:"+str(len(documents)))
+            print(str(counter)+" have been updated so far!")
             with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
                 future_to_url = (executor.submit(findAndUpdateUser, db, document)for document in documents)
                 time1 = time.time()
