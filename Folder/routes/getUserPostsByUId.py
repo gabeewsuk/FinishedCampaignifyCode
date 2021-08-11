@@ -39,7 +39,7 @@ def userPostsUId(userIds):
             x+=1
         return response.json()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
         time1 = time.time()
         time4 = time.time()
