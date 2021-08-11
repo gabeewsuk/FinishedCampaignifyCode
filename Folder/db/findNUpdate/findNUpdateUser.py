@@ -5,7 +5,6 @@ from datetime import datetime as d
 #Finding user and updating with correct trimmed schema
 def findAndUpdateUser(db, user):
     date = d.now()
-
     #check if user exits
     if user["user"] == None:
         print("This no longer exists")
@@ -32,6 +31,6 @@ def findAndUpdateUser(db, user):
             "TikTok.user.commerce_user_info.ad_experience_entry":user["user"]['commerce_user_info']['ad_experience_entry'],
             "TikTok.lastUserUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}},upsert = True)
         except Exception as Exc:
+            print("exceptions when updating user")
             print(Exc)
-            print(user)
     return user["user"]["nickname"]
