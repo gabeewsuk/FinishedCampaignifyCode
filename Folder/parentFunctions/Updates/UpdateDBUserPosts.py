@@ -26,7 +26,8 @@ def updateUserPosts():
             except Exception as exc:
                 print(exc)
             finally:
-                print("--")
+                iooo = 0
+                #print("--")
                 
 
         time2 = time.time()

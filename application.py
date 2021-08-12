@@ -73,7 +73,7 @@ class oldDB_AddUser(Resource):
         users = addNewUsers(user_ids)
         time2 = time.time()
         time.sleep(10)
-        newUsers_addUserPosts(users)
+        #newUsers_addUserPosts(users)
         time3 = time.time()
         usertime = time2-time1
         poststime = time3-time2
