@@ -11,6 +11,8 @@ from datetime import datetime as d
 from Folder.routes.getUserPosts import userPosts
 from Folder.db.dbConnect import connect
 from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
+from Folder.db.Finders.dbFindUserId import findUserId
+
 
 #update all user posts in the db
 def updateUserPosts():
