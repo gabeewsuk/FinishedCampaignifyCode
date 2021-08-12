@@ -26,7 +26,7 @@ def updateUserPosts():
         subset.append(x)
         if i % 200 == 0:
             users = userPosts(subset)
-            print("Length of documents after API is:"+str(len(documents)))
+            print("Length of documents after API is:"+str(len(users)))
             print(str(counter)+" have been updated so far!") 
             with concurrent.futures.ThreadPoolExecutor(max_workers=200) as executor:
                 future_to_url = (executor.submit(findAndUpdateUserPosts, user)for user in users)
