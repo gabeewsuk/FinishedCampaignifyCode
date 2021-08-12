@@ -9,7 +9,7 @@ from Folder.db.Finders.dbFindSecUid import findSecUid
 from Folder.db.Finders.dbFindUserId import findUserId
 
 #get userPosts for all users in the db
-def userPosts():
+def userPosts(secUids):
     out = []
     exceptions = []
     CONNECTIONS = 100
@@ -17,7 +17,6 @@ def userPosts():
     querystrings = []
 
     #gets all secUids in mongodb
-    secUids = findSecUid()
 
 
     url = config("API_URL")+"/user-posts"
