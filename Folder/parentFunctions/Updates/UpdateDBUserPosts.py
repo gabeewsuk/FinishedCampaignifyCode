@@ -27,7 +27,7 @@ def updateUserPosts():
     z = 0
 
     for x in secUids:
-        if z>2952:
+        if z>16741:
             test.append(x)
         z+=1
     print("number of users from DB to be updated for POSTS is:"+str(len(test)))
