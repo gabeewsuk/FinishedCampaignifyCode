@@ -20,16 +20,25 @@ def updateUserPosts():
     db = connect("TikScrape")
 
     secUids = findSecUid()
+    print(len(secUids))
     subset = []
     counter = 0
-    i = 0
+    test = []
+
     for x in secUids:
+        if z>2952:
+            test.append(x)
+        z+=1
+    print("number of users from DB to be updated for POSTS is:"+str(len(test)))
+    #gets documents from how many we want to scrape
+    i = 0
+    for x in test:
         counter+=1
         subset.append(x)
         if i % 200 == 0:
             users = userPosts(subset)
-            print("Length of documents after API is:"+str(len(users)))
-            print(str(counter)+" have been updated so far!") 
+            print("Length of POSTS after API is:"+str(len(users)))
+            print(str(counter)+" POSTS have been updated so far!") 
             with concurrent.futures.ThreadPoolExecutor(max_workers=200) as executor:
                 future_to_url = (executor.submit(findAndUpdateUserPosts, db, user)for user in users)
                 time1 = time.time()
@@ -47,4 +56,4 @@ def updateUserPosts():
             subset = []
         i+=1
 
-    print("The Whole DBs Posts are up to date...")
+    print("The Whole DBs POSTS are up to date...")
