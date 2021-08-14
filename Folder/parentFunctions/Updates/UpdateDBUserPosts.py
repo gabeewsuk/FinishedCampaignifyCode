@@ -24,6 +24,7 @@ def updateUserPosts():
     subset = []
     counter = 0
     test = []
+    z = 0
 
     for x in secUids:
         if z>2952:
