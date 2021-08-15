@@ -5,14 +5,15 @@ from Folder.db.dbConnect import connect
 
 #find all SecUids in the db... Used for referencing scraping and updating
 def findMissingUserPosts():
+    x  = 0
     print("Fining ids for users from db")
     db = connect("TikScrape")
-    #gets all users from the db list above^ and then only shows the sec_uid to reference user
+    #gets all users from the db list above^ and then only shows the sec_uid to reference user##
     cursor = db.TokFl.find( { 'TikTok.userPosts': { '$exists': False } } )
     print(":")
     user_id = []
     x = 0
-    for document in cursor:
+    for document in cursor:##
         print(x)
         x+=1
         try:
