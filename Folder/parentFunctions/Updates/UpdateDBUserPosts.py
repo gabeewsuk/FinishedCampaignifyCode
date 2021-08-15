@@ -25,7 +25,6 @@ def updateUserPosts():
     counter = 0
     test = []
     z = 0
-s
     for x in secUids:
         if z>20372:
             test.append(x)
