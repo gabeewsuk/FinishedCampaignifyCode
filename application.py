@@ -6,6 +6,9 @@ import time
 #importing function for gettin user from old db
 from Folder.db.Finders.dbFindUserId import findUserId
 
+from googleSheet import sendToGoogleSheets
+from ncaaScraper import scraperFunc
+
 
 #importing functions for adding new users..scraping new users... scraping posts... and updating the DB with them
 from Folder.parentFunctions.AddNewUsers.bulkWrite import addNewUsers
@@ -87,6 +90,13 @@ class addNewUserByUserName(Resource):
         addNewUsersByUName(args.userNames)
         return "Success"
 
+class ncaaScrape(Resource):
+    def post(self):
+        df = scraperFunc()
+        sendToGoogleSheets(df)
+        return "Success"
+
+
 
 
 
@@ -95,6 +105,10 @@ class addNewUserByUserName(Resource):
 api.add_resource(updateSingleUser, "/updateSelectUsers")
 api.add_resource(updateAllUsers, "/updateAllUsers")
 api.add_resource(updateAllUserPosts, "/updateAllUserPosts")
+
+
+#NCAA
+api.add_resource(ncaaScrape, "/ncaa")
 
 
 
