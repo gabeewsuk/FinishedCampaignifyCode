@@ -44,11 +44,12 @@ def updateSelectUsers(sec_uids):
     #--For all users sent in via array-- finding the user in Mongo and updating them with user creds first then updating posts $$(just replaced values for MVP)$$
     for querystring in querystrings:
         user = fetch_user(querystring)
-        findAndUpdateUser(user)
+        findAndUpdateUser(db, user)
 
     for querystring in querystringsPOSTS:
         posts = fetch_user_posts(querystring)
-        findAndUpdateUserPosts(posts)
+        findAndUpdateUserPosts(db, posts)
+    print("Done Updating Selected Users")
        
         
    
