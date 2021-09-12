@@ -84,6 +84,7 @@ class oldDB_AddUser(Resource):
 class addNewUserByUserName(Resource):
     def post(self):
         args = scrape_post_args.parse_args()
+        print(args.userNames)
         addNewUsersByUName(args.userNames)
         return "Success"
 
