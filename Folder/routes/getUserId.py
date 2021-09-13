@@ -25,6 +25,7 @@ def getUserId(userNames):
 
     for x in userNames:
         querystrings.append({"username":str(x)})
+        print(querystrings)
             
     print(querystrings)
     def load_url(querystring):
