@@ -17,10 +17,11 @@ def newUsers_addUserPosts(userIds):
     i = 0
     counter = 0
     print("number of users to add posts to is:"+str(len(userIds)))
+    userCount = len(userIds)
     for x in userIds:
         counter+=1
         subset.append(x)
-        if i % 200 == 0:
+        if i % 200 == 0 or userCount < 200:
             users = userPostsUId(subset)
             print("Length of users being updated is"+str(len(users)))
             print(str(counter)+" have been updated so far!")
@@ -39,5 +40,6 @@ def newUsers_addUserPosts(userIds):
             print(f'Took {time2-time1:.2f} s')
             subset = []
         i+=1
+        userCount-=1
 
     print("Done updating userPosts!")
