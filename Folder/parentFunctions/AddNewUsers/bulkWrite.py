@@ -111,7 +111,7 @@ def addNewUsers(user_ids):
                 subset = []
 
         if len(user_ids)>1500 and len(user_ids)<5000:
-            if i % 10 == 0:
+            if i % 100 == 0:
                 documents = scrapeUsers(subset)
                 print("Length of documents after API is:"+str(len(documents)))
                 print(str(counter)+" have been updated so far!")
