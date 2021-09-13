@@ -63,6 +63,7 @@ def getUserId(userNames):
     print(f'Took {time2-time1:.2f} s')
     print(len(out))
     print("getting user id from username")
+    print(out)
     user_id = []
     for document in out:
         try:
