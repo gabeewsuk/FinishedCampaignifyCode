@@ -16,18 +16,11 @@ def addNewUsers(user_ids):
     test = []
     counter = 0
     z = 0
-    #choose how many users we want
-    for x in user_ids:
-        if z>4900:
-            test.append(x)
-        #z+=1
-        #if z == 2205:
-            #break
-    print("number of users from DB is:"+str(len(test)))
+    print("number of users from DB is:"+str(len(user_ids)))
     #gets documents from how many we want to scrape
     subset = []
     i = 0
-    for x in test:
+    for x in user_ids:
         counter+=1
         subset.append(x)
         if i % 200 == 0:
