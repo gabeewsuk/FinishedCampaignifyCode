@@ -29,11 +29,14 @@ def getUserId(userNames):
             
     print(querystrings)
     def load_url(querystring):
-        response = requests.request("GET", url, headers=headers, params=querystring)
+        new = querystring['username']["username"]
+        print("querystring is:")
+        print(new)
+        response = requests.request("GET", url, headers=headers, params=new)
         while response.status_code == 429:
             print("API server is getting too many requests")
             time.sleep(4)
-            response = requests.request("GET", url, headers=headers, params=querystring)
+            response = requests.request("GET", url, headers=headers, params=new)
         return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
