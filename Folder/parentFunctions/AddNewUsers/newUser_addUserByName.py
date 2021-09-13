@@ -14,6 +14,7 @@ def addNewUsersByUName(userNames):
     #gets user id for each user in array
     user_ids = getUserId(userNames)
     #adds users in to db
+    print(user_ids)
     addNewUsers(user_ids)
     #adds posts to all users
     newUsers_addUserPosts(user_ids)

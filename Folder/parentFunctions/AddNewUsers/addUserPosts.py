@@ -15,7 +15,8 @@ def newUsers_addUserPosts(userIds):
     db = connect('TikScrape')
     subset = []
     i = 0
-    counter = 0 
+    counter = 0
+    print("number of users to add posts to is:"+str(len(userIds)))
     for x in userIds:
         counter+=1
         subset.append(x)
