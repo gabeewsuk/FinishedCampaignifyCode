@@ -5,11 +5,15 @@ import concurrent.futures
 import requests
 from decouple import config
 
+from db.Finders.dbFindUserNames import findUserNames
+
 
 
 
 #getUserId from an array of usernames
 def getUserId(userNames):
+    uNameList = findUserNames()
+    print(len(uNameList))
     querystrings = []
     out = []
         
@@ -31,12 +35,15 @@ def getUserId(userNames):
         new = querystring["username"]
         new = new.replace("{'username': '", "")
         new = new.replace("'}", "")
-        response = requests.request("GET", url, headers=headers, params={"username":new})
-        while response.status_code == 429:
-            print("API server is getting too many requests")
-            time.sleep(4)
+        if new in uNameList:
+            return 0
+        else:
             response = requests.request("GET", url, headers=headers, params={"username":new})
-        return response.json()
+            while response.status_code == 429:
+                print("API server is getting too many requests")
+                time.sleep(4)
+                response = requests.request("GET", url, headers=headers, params={"username":new})
+            return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
         future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
@@ -45,7 +52,10 @@ def getUserId(userNames):
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
-                out.append(data)
+                if data == 0:
+                    print("user already in DB")
+                else:
+                    out.append(data)
             except Exception as exc:
                 data1 = str(type(exc))
                 print(exc)
