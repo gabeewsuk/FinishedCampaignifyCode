@@ -5,7 +5,7 @@ import concurrent.futures
 import requests
 from decouple import config
 
-from db.Finders.dbFindUserNames import findUserNames
+from Folder.db.Finders.dbFindUserNames import findUserNames
 
 
 
