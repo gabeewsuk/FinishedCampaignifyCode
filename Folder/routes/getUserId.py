@@ -29,12 +29,22 @@ def getUserId(userNames):
 
     for x in userNames:
         querystrings.append({"username":str(x)})
-            
-    print(querystrings)
-    def load_url(querystring):
+    trimUname = []
+    for querystring in querystrings:
         new = querystring["username"]
         new = new.replace("{'username': '", "")
         new = new.replace("'}", "")
+        trimUname.append(new)
+    print(trimUname)
+    uniqueList = []
+    for x in trimUname:
+        if new in uNameList:
+            print("name already in list")
+        else:
+            uniqueList.append(x)
+            
+    print(uniqueList)
+    def load_url(new):
         if new in uNameList:
             return 0
         else:
@@ -46,7 +56,7 @@ def getUserId(userNames):
             return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
-        future_to_url = (executor.submit(load_url, querystring)for querystring in querystrings)
+        future_to_url = (executor.submit(load_url, Uname)for Uname in uniqueList)
         time1 = time.time()
         time4 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
