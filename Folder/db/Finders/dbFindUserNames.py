@@ -15,7 +15,7 @@ def findUserNames():
     user_names = []
     for document in cursor:
         try:
-            user_id.append(document['TikTok']['user']['unique_id'])
+            user_names.append(document['TikTok']['user']['unique_id'])
             
  
         except KeyError: 
