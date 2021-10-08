@@ -5,7 +5,7 @@ from datetime import datetime as d
 #Finding user and updating with correct trimmed schema
 def findAndUpdateUser(db, user):
     date = d.now()
-    #check if user exits
+    #check if user exitss
     if user["user"] == None:
         print("This no longer exists")
 

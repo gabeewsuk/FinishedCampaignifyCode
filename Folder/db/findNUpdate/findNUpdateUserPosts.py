@@ -87,6 +87,8 @@ def findAndUpdateUserPosts(db, user):
     'superString':descSuperString,
     }
     #adding to db
-    db.TokFl.find_one_and_update({'TikTok.user.sec_uid': userPosts["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"TikTok.userPosts":userPosts, 'TikTok.averages':averages, "TikTok.lastPostUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}})
+    updateDate = date.strftime("%Y-%m-%d %H:%M:%S")
+    print(updateDate)
+    db.TokFl.find_one_and_update({'TikTok.user.sec_uid': userPosts["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"TikTok.userPosts":userPosts, 'TikTok.averages':averages, "TikTok.lastPostUpdate":updateDate}})
 
     return userPosts["aweme_list"][0]["author"]["unique_id"]
