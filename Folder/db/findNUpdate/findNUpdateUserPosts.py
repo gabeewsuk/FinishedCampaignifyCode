@@ -50,7 +50,7 @@ def findAndUpdateUserPosts(db, user):
         'share_url':post['share_url']}
         })
         descSuperString+=post['desc']
-        if counter <length:
+        if (counter <(length+3)) and (counter > 3):
             totalComments += post['statistics']['comment_count']
             totalLikes += post['statistics']['digg_count']
             totalViews += post['statistics']['play_count']
@@ -89,6 +89,6 @@ def findAndUpdateUserPosts(db, user):
     #adding to db
     updateDate = date.strftime("%Y-%m-%d %H:%M:%S")
     print(updateDate)
-    db.TokFl.find_one_and_update({'TikTok.user.sec_uid': userPosts["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"TikTok.userPosts":userPosts, 'TikTok.averages':averages, "TikTok.lastPostUpdate":updateDate}})
+    db.TokFl.find_one_and_update({'TikTok.user.sec_uid': userPosts["aweme_list"][0]["author"]["sec_uid"]}, {"$set":{"TikTok.userPosts":userPosts, 'TikTok.averages':averages, "TikTok.lastPostUpdate":str(updateDate)}})
 
     return userPosts["aweme_list"][0]["author"]["unique_id"]
