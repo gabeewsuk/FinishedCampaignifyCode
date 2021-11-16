@@ -47,8 +47,8 @@ def QueryDataAny():
     
         "$or": [
 
-          #{"instaBioEmail":{"$exists":True}},
-          #{"tiktokBioEmail":{"$exists":True}},
+          {"instaBioEmail":{"$exists":True}},
+          {"tiktokBioEmail":{"$exists":True}},
 
 
           #{ "Instagram.user.bio": { "$regex": "@", "$options": "i" }},
@@ -65,9 +65,9 @@ def QueryDataAny():
           #{"TikTok.userPosts.aweme_list.0.general.date":{ "$gt": date_time_obj}},
           #{"TikTok.user.":{ "$exists":False }},
            #{"TikTok.lastPostUpdate":{ "$gt": "2021-11-13 22:50:09"}},
-            {"TikTok.userPosts.aweme_list.2.general.date":{ "$gt": date_time_obj}},
-          {"TikTok.userPosts.aweme_list.3.general.date":{ "$gt": date_time_obj}},
-            {"TikTok.userPosts.aweme_list.4.general.date":{ "$gt": date_time_obj}},
+            #{"TikTok.userPosts.aweme_list.2.general.date":{ "$gt": date_time_obj}},
+          #{"TikTok.userPosts.aweme_list.3.general.date":{ "$gt": date_time_obj}},
+           # {"TikTok.userPosts.aweme_list.4.general.date":{ "$gt": date_time_obj}},
         ],
         "$and": [
               #{ "Instagram.user.bio": { "$regex": ".com", "$options": "i" }},
@@ -123,37 +123,86 @@ def QueryDataAny():
   z = 0
   for document in cursor:
     z+=1
-
     try:
-      
+      print(document["tiktokBioEmail"])
+      print(document["instaBioEmail"])
       instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
       TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
 
       f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
       document["Instagram"]["user"]["follower_count"], 
       document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
-      document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"]
+      document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], document["instaBioEmail"]
       ]
       data.append(f)
       x+=1
+     
     except Exception as e:
       try:
         instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
         TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
 
         f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
-        "NA", 
+        document["Instagram"]["user"]["follower_count"], 
         document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
-        document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"]
+        document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], document["instaBioEmail"]
         ]
         data.append(f)
         x+=1
       except:
-        print("no instagram")
+        try:
+          instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+          TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+          f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+          document["Instagram"]["user"]["follower_count"], 
+          document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+          document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], "NA", document["instaBioEmail"]
+          ]
+          data.append(f)
+          x+=1
+        except:
+          try:
+            
+            instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+            TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+            f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+            document["Instagram"]["user"]["follower_count"], 
+            document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+            document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], "NA"
+            ]
+            data.append(f)
+            x+=1
+          except:
+            try:
+                instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+                TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+                f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+                "NA", 
+                document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+                document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], "NA"
+                ]
+                data.append(f)
+                x+=1
+            except:
+              try:
+                instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+                TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+                f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+                "NA", 
+                document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+                document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"],  "NA", "NA"
+                ]
+                data.append(f)
+                x+=1
+              except:
+                print("no instagram")
   toDF(data)
   print(z)
   print(x)
-
 
 
 
@@ -241,6 +290,11 @@ if __name__ == "__main__":
     #Tag = ""
     #updateDataByCSV(Tag)
     #--
+
+    #this section is used for querying users based on a Tag
+    #This returns output.csv
+    #Tag="Roster"
+    #QueryData(Tag)
 
 
 

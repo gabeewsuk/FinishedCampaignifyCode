@@ -7,7 +7,7 @@ import datetime
 from Folder.db.dbConnect import connect
 
 def toDF(data):
-    df = pd.DataFrame(data, columns = ['instagram', 'TikTok', 'ins_followers', 'aViews', 'aLikes', 'aComments', 'tikFollowers', "InstaLink",  "TikTokLink", "name"])
+    df = pd.DataFrame(data, columns = ['instagram', 'TikTok', 'ins_followers', 'aViews', 'aLikes', 'aComments', 'tikFollowers', "InstaLink",  "TikTokLink", "name", "Email1", "Email2"])
     
     df.to_csv('output.csv', index = False, header = True)
 
@@ -47,34 +47,83 @@ def QueryData(Tag):
   z = 0
   for document in cursor:
     z+=1
-
     try:
-      
+      print(document["tiktokBioEmail"])
+      print(document["instaBioEmail"])
       instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
       TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
 
       f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
       document["Instagram"]["user"]["follower_count"], 
       document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
-      document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"]
+      document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], document["instaBioEmail"]
       ]
       data.append(f)
       x+=1
+     
     except Exception as e:
       try:
         instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
         TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
 
         f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
-        "NA", 
+        document["Instagram"]["user"]["follower_count"], 
         document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
-        document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"]
+        document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], document["instaBioEmail"]
         ]
         data.append(f)
         x+=1
       except:
-        print("no instagram")
+        try:
+          instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+          TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+          f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+          document["Instagram"]["user"]["follower_count"], 
+          document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+          document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], "NA", document["instaBioEmail"]
+          ]
+          data.append(f)
+          x+=1
+        except:
+          try:
+            
+            instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+            TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+            f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+            document["Instagram"]["user"]["follower_count"], 
+            document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+            document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], "NA"
+            ]
+            data.append(f)
+            x+=1
+          except:
+            try:
+                instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+                TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+                f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+                "NA", 
+                document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+                document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"], document["tiktokBioEmail"], "NA"
+                ]
+                data.append(f)
+                x+=1
+            except:
+              try:
+                instaLink = "https://www.instagram.com/"+str(document["TikTok"]["user"]["ins_id"])
+                TTLink = "https://www.tiktok.com/@"+str(document["TikTok"]["user"]["unique_id"])+"?"
+
+                f = [document["TikTok"]["user"]["ins_id"], document["TikTok"]["user"]["unique_id"],
+                "NA", 
+                document["TikTok"]["averages"]["views"], document["TikTok"]["averages"]["likes"], document["TikTok"]["averages"]["comments"],
+                document["TikTok"]["user"]["follower_count"], instaLink, TTLink, document["TikTok"]["user"]["nickname"],  "NA", "NA"
+                ]
+                data.append(f)
+                x+=1
+              except:
+                print("no instagram")
   toDF(data)
   print(z)
   print(x)
-
