@@ -12,6 +12,7 @@ from QueryDB import toDF
 from updateUsersByCsv import updateByCsv
 from z import addEmailBio
 
+from y import findTags
 
 #HERE IS WHERE YOU MAKE THE EDITS
 def blastMessage():
@@ -273,7 +274,7 @@ if __name__ == "__main__":
     #This section is used for Querying returns output.csv 
     #You need to edit the function above to query specific results starts on line 34
     #--
-    QueryDataAny()
+    #QueryDataAny()
     #--
 
     #this seciotn is used for adding to the database by csv
@@ -295,6 +296,9 @@ if __name__ == "__main__":
     #This returns output.csv
     #Tag="Roster"
     #QueryData(Tag)
+
+    tags = findTags()
+    print(tags)
 
 
 
