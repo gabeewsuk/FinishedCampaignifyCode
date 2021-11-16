@@ -17,7 +17,7 @@ def addEmailBio(Tag):
     print("Fining ids for users from db")
     db = connect("TikScrape")
     #gets all users from the db list above^ and then only shows the sec_uid to reference user##
-    cursor = db.TokFl.find("Tag":{ "$regex": Tag, "$options": "i" })
+    cursor = db.TokFl.find({"Tag":{ "$regex": Tag, "$options": "i" }})
     counter1 = 0
     counter2 = 0
     counter3 = 0
@@ -71,6 +71,6 @@ def addEmailBio(Tag):
     print(counter2)
     print(counter3)
 
-addEmailBio()
+
         
     
