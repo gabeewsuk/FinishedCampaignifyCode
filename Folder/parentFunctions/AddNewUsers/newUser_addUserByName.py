@@ -12,12 +12,13 @@ from Folder.parentFunctions.AddNewUsers.addUserPosts import newUsers_addUserPost
 #add new users by an array of usernames
 def addNewUsersByUName(userNames):
     #gets user id for each user in array
-    user_ids = getUserId(userNames)
+    sec_uids = getUserId(userNames)
     #adds users in to db
-    print(user_ids)
-    addNewUsers(user_ids)
+    print(sec_uids)
+    print("SEC USER IDS^")
+    addNewUsers(sec_uids)
     #adds posts to all users
-    newUsers_addUserPosts(user_ids)
+    newUsers_addUserPosts(sec_uids)
     print("added new users by username Array...")
 
     

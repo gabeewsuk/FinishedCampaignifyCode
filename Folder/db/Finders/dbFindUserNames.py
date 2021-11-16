@@ -15,12 +15,17 @@ def findUserNames():
     user_names = []
     for document in cursor:
         try:
-            user_names.append(document['TikTok']['user']['unique_id'])
+            #user_names.append(document['TikTok']['user']['unique_id'])
+            name = str(document["TikTok"]["user"]["unique_id"])
+            #print(name)
+            user_names.append(name)
             
  
         except KeyError: 
-            print(KeyError)
-            print("not working")
+            pass
+            #print(KeyError)
+            #print("not working")
+            #print("dbFindUserNames.py")
 	        # handle the error 
         
             

@@ -25,7 +25,7 @@ def userPostsUId(userIds):
 
     z = 0
     for x in userIds:
-        querystrings.append({"user_id":str(x),"count":"100", "max_cursor":"0"})
+        querystrings.append({"user_id":str(x),"count":"32", "max_cursor":"0"})
 
 
     def load_url(querystring):

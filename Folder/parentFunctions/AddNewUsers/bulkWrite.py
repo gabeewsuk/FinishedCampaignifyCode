@@ -4,7 +4,7 @@ import sys, os
 import time
 import concurrent.futures
 from Folder.db.dbConnect import connect
-from Folder.routes.getUser import scrapeUsers
+from Folder.routes.getUserSecUidInput import getUserInp
 from Folder.db.Finders.dbFindUserId import findUserId
 from datetime import datetime as d
 from Folder.db.findNUpdate.findNUpdateUser import findAndUpdateUser
@@ -25,7 +25,7 @@ def addNewUsers(user_ids):
         counter+=1
         subset.append(x)
         if i % 200 == 0 or userCount < 200:
-            documents = scrapeUsers(subset)
+            documents = getUserInp(subset)
             print("Length of documents after API is:"+str(len(documents)))
             print(str(counter)+" have been updated so far!")
             with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:

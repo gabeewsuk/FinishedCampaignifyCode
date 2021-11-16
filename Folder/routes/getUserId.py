@@ -16,7 +16,18 @@ def getUserId(userNames):
     print(len(uNameList))
     querystrings = []
     out = []
-        
+    trimName = []
+    counter = 0
+    for x in userNames:
+        if x not in uNameList:
+            counter +=1
+            trimName.append(x)
+    #print(trimName)
+    print(len(trimName))
+
+     
+            
+
     url = config("API_URL")+"/username-to-id"
 
 
@@ -27,36 +38,33 @@ def getUserId(userNames):
 
 
 
-    for x in userNames:
-        querystrings.append({"username":str(x)})
-    trimUname = []
-    for querystring in querystrings:
-        new = querystring["username"]
-        new = new.replace("{'username': '", "")
-        new = new.replace("'}", "")
-        trimUname.append(new)
-    print(trimUname)
-    uniqueList = []
-    for x in trimUname:
-        if new in uNameList:
-            print("name already in list")
-        else:
-            uniqueList.append(x)
-            
-    print(uniqueList)
+    #for x in trimName:
+       # querystrings.append({"username":str(x)})
+    #trimUname = []
+    #for querystring in querystrings:
+    #    new = querystring["username"]
+     #   new = new.replace("{'username': '", "")
+    #    new = new.replace("'}", "")
+    #    trimUname.append(new)
+    #print(trimUname)
+    #uniqueList = []
+    #for x in trimUname:
+    #    if new in uNameList:
+    #        print("name already in list")
+    #    else:
+    #        uniqueList.append(x)
+    #        
+    #print(uniqueList)
     def load_url(new):
-        if new in uNameList:
-            return 0
-        else:
+        response = requests.request("GET", url, headers=headers, params={"username":new})
+        while response.status_code == 429:
+            print("API server is getting too many requests")
+            time.sleep(4)
             response = requests.request("GET", url, headers=headers, params={"username":new})
-            while response.status_code == 429:
-                print("API server is getting too many requests")
-                time.sleep(4)
-                response = requests.request("GET", url, headers=headers, params={"username":new})
-            return response.json()
+        return response.json()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
-        future_to_url = (executor.submit(load_url, Uname)for Uname in uniqueList)
+        future_to_url = (executor.submit(load_url, Uname)for Uname in trimName)
         time1 = time.time()
         time4 = time.time()
         for future in concurrent.futures.as_completed(future_to_url):
@@ -90,12 +98,12 @@ def getUserId(userNames):
     user_id = []
     for document in out:
         try:
-            user_id.append(document['user_id'])
+            user_id.append(document['sec_uid'])
  
         except KeyError: 
             print(KeyError)
             print("not working")
 	        # handle the error 
         
-            
+    
     return user_id

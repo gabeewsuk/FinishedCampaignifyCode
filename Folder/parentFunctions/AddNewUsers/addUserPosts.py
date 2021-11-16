@@ -4,7 +4,7 @@ import concurrent.futures
 import requests
 from datetime import datetime as d
 
-from Folder.routes.getUserPostsByUId import userPostsUId
+from Folder.routes.getUserPosts import userPosts
 from Folder.db.dbConnect import connect
 from Folder.db.findNUpdate.findNUpdateUserPosts import findAndUpdateUserPosts
 
@@ -22,7 +22,7 @@ def newUsers_addUserPosts(userIds):
         counter+=1
         subset.append(x)
         if i % 200 == 0 or userCount < 200:
-            users = userPostsUId(subset)
+            users = userPosts(subset)
             print("Length of users being updated is"+str(len(users)))
             print(str(counter)+" have been updated so far!")
             with concurrent.futures.ThreadPoolExecutor(max_workers=500) as executor:
