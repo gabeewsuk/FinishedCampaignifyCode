@@ -16,6 +16,7 @@ def addNewUsersByUName(userNames):
     #adds users in to db
     print(sec_uids)
     print("SEC USER IDS^")
+    print(len(sec_uids))
     addNewUsers(sec_uids)
     #adds posts to all users
     newUsers_addUserPosts(sec_uids)

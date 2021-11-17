@@ -9,5 +9,6 @@ def readRoster():
   return my_list
 def updateByCsv(roster):  
     sec_uids = findSecUidByUname(roster)
+    print(len(sec_uids))
     updateSelectUsers(sec_uids)
     print("done updating list from Roster.csv...")

@@ -5,4 +5,10 @@ def readRoster():
     file = csv.reader(f)
     my_list = list(file)
   print(my_list)
-  return my_list
+  returned_list = []
+  for x in my_list:
+    x = str(x)
+    x = x.replace("['", "")
+    x = x.replace("']", "")
+    returned_list.append(x)
+  return returned_list

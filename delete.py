@@ -10,7 +10,7 @@ from Folder.db.dbConnect import connect
 print("Fining ids for users from db")
 db = connect("TikScrape")
 
-Tag = "PDFTEST"
+Tag = "GabeROA"
 db.TokFl.delete_many(
 {
 

@@ -260,7 +260,7 @@ if __name__ == "__main__":
     #Takes Roster.csv, returns output.csv
     #You must define the Tag in the line below
     #--
-    #Tag = "JOSEANDXTEST"
+    #Tag = "GabeROA"
     #TagByCSV(Tag)
     #--
 
@@ -281,24 +281,24 @@ if __name__ == "__main__":
     #you takes Roster.csv and returns output.csv
     #choose a Tag
     #--
-    #Tag = ""
-    #CSVToDB(Tag)
+    Tag = "GabeROATest"
+    CSVToDB(Tag)
     #--
 
     #this section is used for updating users data by csv... THESE USERS MUST ALREADY BE IN THE DATABASE
     #This takes Roster.csv and returns output.csv
     #--
-    #Tag = ""
+    #Tag = "GabeROATest"
     #updateDataByCSV(Tag)
     #--
 
     #this section is used for querying users based on a Tag
     #This returns output.csv
-    #Tag="Roster"
+    #Tag="GabeROATest"
     #QueryData(Tag)
 
-    tags = findTags()
-    print(tags)
+    #tags = findTags()
+    #print(tags)
 
 
 

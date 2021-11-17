@@ -28,7 +28,7 @@ def findAndUpdateUser(db, user):
             "TikTok.user.unique_id":user["user"]['unique_id'],
             "TikTok.user.youtube_channel_id":user["user"]['youtube_channel_id'],
             "TikTok.user.youtube_channel_title":user["user"]['youtube_channel_title'],
-            "TikTok.user.commerce_user_info.ad_experience_entry":user["user"]['commerce_user_info']['ad_experience_entry'],
+            #"TikTok.user.commerce_user_info.ad_experience_entry":user["user"]['commerce_user_info']['ad_experience_entry'],
             "TikTok.lastUserUpdate":date.strftime("%Y-%m-%d %H:%M:%S")}},upsert = True)
         except Exception as Exc:
             print("exceptions when updating user")
